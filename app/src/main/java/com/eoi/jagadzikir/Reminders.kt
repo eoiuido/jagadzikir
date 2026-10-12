@@ -11,9 +11,9 @@ import android.content.Intent
 import android.os.Build
 import java.util.Calendar
 
-// How reminders work: the app sets ONE alarm with the phone's own alarm clock,
-// for the next reminder time. When it rings, the app shows the notification
-// and sets the alarm for the time after that. No server, no internet.
+// How reminders work: the app sets ONE silent system timer (Android's AlarmManager,
+// which never makes a sound) for the next reminder time. When it fires, the app shows
+// a silent notification and sets the timer for the time after that. No server, no internet.
 object Reminders {
     private const val CHANNEL = "dzikir"
     private const val NOTIFICATION_ID = 1
