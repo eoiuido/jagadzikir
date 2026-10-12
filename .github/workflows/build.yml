@@ -1,0 +1,46 @@
+# Builds the app in GitHub's cloud on every change, and publishes the
+# APK as a "test-build" release that the owner can install on a phone.
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.13"
+
+      - name: Build
+        run: gradle assembleRelease --no-daemon
+
+      - name: Report size
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk JagaDzikir.apk
+          echo "### JagaDzikir.apk: $(( $(stat -c%s JagaDzikir.apk) / 1024 )) KB" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish test build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          SIZE_KB=$(( $(stat -c%s JagaDzikir.apk) / 1024 ))
+          gh release delete test-build --yes --cleanup-tag || true
+          gh release create test-build JagaDzikir.apk \
+            --prerelease \
+            --target "$GITHUB_SHA" \
+            --title "Test build ${GITHUB_SHA::7} (${SIZE_KB} KB)" \
+            --notes "Latest test build for the phone. Size: ${SIZE_KB} KB."
