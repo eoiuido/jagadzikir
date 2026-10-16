@@ -13,11 +13,16 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings as AndroidSettings
+import android.text.Editable
+import android.text.InputFilter
+import android.text.InputType
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.WindowInsets
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.Switch
@@ -83,6 +88,14 @@ class MainActivity : Activity() {
     }
 
     private fun onStartPressed() {
+        if (notificationText(settings) == null) {
+            AlertDialog.Builder(this)
+                .setTitle("Teks sendiri")
+                .setMessage("Tulis teks Anda dulu, dalam huruf Arab, Latin, atau keduanya.")
+                .setPositiveButton("OK", null)
+                .show()
+            return
+        }
         if (Reminders.notificationsAllowed(this)) {
             start()
             return
@@ -192,6 +205,7 @@ class MainActivity : Activity() {
 
         page.addView(section("Pilih dzikir"))
         for (d in DZIKIR) page.addView(dzikirCard(d, d.id == settings.dzikir))
+        page.addView(customCard())
 
         page.addView(section("Setiap"))
         page.addView(intervalRow())
@@ -206,7 +220,7 @@ class MainActivity : Activity() {
         }
 
         if (settings.running) {
-            val status = "Aktif · ${dzikirById(settings.dzikir).name} · setiap ${formatInterval(settings.intervalMinutes)}"
+            val status = "Aktif · ${dzikirName(settings)} · setiap ${formatInterval(settings.intervalMinutes)}"
             page.addView(label(status, 15, GREEN, bold = true).apply { gravity = Gravity.CENTER }.withTop(32))
             page.addView(button("Hentikan", filled = false) { update(settings.copy(running = false)) }.withTop(10))
         } else {
@@ -233,17 +247,56 @@ class MainActivity : Activity() {
         page.addView(body("3. Pilih \"Tidak dibatasi\" (atau matikan \"Optimalkan baterai\")."))
         page.addView(body("Pastikan juga notifikasi untuk JagaDzikir diizinkan. Pengingat kadang bisa terlambat beberapa menit. Ini normal di Android."))
         page.addView(button("Buka Pengaturan Aplikasi", filled = false) { startActivity(appDetailsIntent()) }.withTop(16))
+
+        page.addView(section("Donasi (tidak wajib)"))
+        page.addView(body("JagaDzikir gratis selamanya, tanpa iklan, dan akan tetap begitu."))
+        page.addView(body("Jika aplikasi kecil ini membantu Anda lebih sering berdzikir, dan hati Anda tergerak untuk ikut mendukung, Anda bisa berdonasi seikhlasnya."))
+        page.addView(body("Tanpa donasi pun sama sekali tidak apa-apa. Doa baik dari Anda sudah sangat berarti. Jazakumullahu khairan."))
+        // TODO: replace with the owner's donation details once Google Play's rules are checked.
+        page.addView(label("Info donasi akan segera hadir.", 13, GREY).withTop(8))
         return page
     }
 
     private fun dzikirCard(d: Dzikir, selected: Boolean): View {
+        val card = cardShell(d.name, selected) { update(settings.copy(dzikir = d.id)) }
+        card.addView(arabicLabel(d.arabic))
+        card.addView(latinLabel(d.latin))
+        card.addView(label(d.meaning, 13, GREY).withTop(2))
+        return card
+    }
+
+    // The 6th choice: the user writes their own dzikir, in Arabic, Latin or both.
+    private fun customCard(): View {
+        val selected = settings.dzikir == CUSTOM_ID
+        val card = cardShell("Teks sendiri", selected) { update(settings.copy(dzikir = CUSTOM_ID)) }
+        if (selected) {
+            // Typing saves straight away, without redrawing the screen (that would close the keyboard).
+            card.addView(input(settings.customArabic, "Teks Arab (boleh kosong)", arabic = true) {
+                settings = settings.copy(customArabic = it)
+                Store.save(this, settings)
+            }.withTop(10))
+            card.addView(input(settings.customLatin, "Teks Latin (boleh kosong)", arabic = false) {
+                settings = settings.copy(customLatin = it)
+                Store.save(this, settings)
+            }.withTop(8))
+            card.addView(label("Isi salah satu atau keduanya.", 13, GREY).withTop(6))
+        } else if (settings.customArabic.isBlank() && settings.customLatin.isBlank()) {
+            card.addView(label("Tulis dzikir atau doa Anda sendiri.", 13, GREY).withTop(6))
+        } else {
+            if (settings.customArabic.isNotBlank()) card.addView(arabicLabel(settings.customArabic.trim()))
+            if (settings.customLatin.isNotBlank()) card.addView(latinLabel(settings.customLatin.trim()))
+        }
+        return card
+    }
+
+    private fun cardShell(name: String, selected: Boolean, onSelect: () -> Unit): LinearLayout {
         val card = column().apply {
             setPadding(dp(14), dp(14), dp(14), dp(14))
             background = rounded(if (selected) GREEN_LIGHT else WHITE, if (selected) GREEN else BORDER, 14)
-            setOnClickListener { update(settings.copy(dzikir = d.id)) }
+            if (!selected) setOnClickListener { onSelect() }
         }
         val top = LinearLayout(this).apply { gravity = Gravity.CENTER_VERTICAL }
-        top.addView(label(d.name, 15, if (selected) GREEN else GREY, bold = true), LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
+        top.addView(label(name, 15, if (selected) GREEN else GREY, bold = true), LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f))
         val radio = View(this).apply {
             background = GradientDrawable().apply {
                 shape = GradientDrawable.OVAL
@@ -252,11 +305,31 @@ class MainActivity : Activity() {
         }
         top.addView(radio, LinearLayout.LayoutParams(dp(20), dp(20)))
         card.addView(top)
-        card.addView(label(d.arabic, 24, TEXT).apply { gravity = Gravity.RIGHT }.withTop(6))
-        card.addView(label(d.latin, 15, TEXT_SOFT).apply { setTypeface(typeface, Typeface.ITALIC) }.withTop(4))
-        card.addView(label(d.meaning, 13, GREY).withTop(2))
         return card.withTop(10)
     }
+
+    private fun arabicLabel(str: String): View = label(str, 24, TEXT).apply { gravity = Gravity.RIGHT }.withTop(6)
+
+    private fun latinLabel(str: String): View =
+        label(str, 15, TEXT_SOFT).apply { setTypeface(typeface, Typeface.ITALIC) }.withTop(4)
+
+    private fun input(value: String, hintText: String, arabic: Boolean, onChange: (String) -> Unit): EditText =
+        EditText(this).apply {
+            setText(value)
+            hint = hintText
+            textSize = if (arabic) 20f else 15f
+            setTextColor(TEXT)
+            if (arabic) gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+            filters = arrayOf(InputFilter.LengthFilter(120))
+            background = rounded(WHITE, BORDER, 10)
+            setPadding(dp(12), dp(10), dp(12), dp(10))
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) = onChange(s?.toString() ?: "")
+            })
+        }
 
     private fun intervalRow(): View {
         val row = LinearLayout(this)

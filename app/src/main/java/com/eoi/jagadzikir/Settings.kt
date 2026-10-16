@@ -10,6 +10,8 @@ data class Settings(
     val quietStart: Int = 22 * 60,
     val quietEnd: Int = 4 * 60 + 30,
     val running: Boolean = false,
+    val customArabic: String = "",
+    val customLatin: String = "",
 )
 
 // Saves the settings in a small private file on the phone. Nothing leaves the phone.
@@ -26,6 +28,8 @@ object Store {
             quietStart = p.getInt("quietStart", d.quietStart),
             quietEnd = p.getInt("quietEnd", d.quietEnd),
             running = p.getBoolean("running", d.running),
+            customArabic = p.getString("customArabic", d.customArabic) ?: d.customArabic,
+            customLatin = p.getString("customLatin", d.customLatin) ?: d.customLatin,
         )
     }
 
@@ -37,6 +41,8 @@ object Store {
             .putInt("quietStart", s.quietStart)
             .putInt("quietEnd", s.quietEnd)
             .putBoolean("running", s.running)
+            .putString("customArabic", s.customArabic)
+            .putString("customLatin", s.customLatin)
             .apply()
     }
 }

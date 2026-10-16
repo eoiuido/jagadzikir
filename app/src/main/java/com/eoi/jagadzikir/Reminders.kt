@@ -44,8 +44,8 @@ object Reminders {
 
     fun show(context: Context) {
         if (!notificationsAllowed(context)) return
+        val (title, text) = notificationText(Store.load(context)) ?: return
         ensureChannel(context)
-        val d = dzikirById(Store.load(context).dzikir)
         val open = PendingIntent.getActivity(
             context, 0,
             Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP),
@@ -54,8 +54,8 @@ object Reminders {
         val notification = builder(context)
             .setSmallIcon(R.drawable.ic_notification)
             .setColor(GREEN)
-            .setContentTitle(d.arabic)
-            .setContentText(d.latin)
+            .setContentTitle(title)
+            .setContentText(text)
             .setContentIntent(open)
             .setAutoCancel(true)
             .build()

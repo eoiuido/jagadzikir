@@ -21,10 +21,12 @@ The app has **2 screens**. All text in the app is in **Indonesian**.
 From top to bottom:
 
 1. **Pick one dzikir** (only one can be chosen at a time). Each choice shows the Arabic, the Latin and a short Indonesian meaning in small text, so the user knows what they are choosing.
-   - Sholawat (selected by default)
-   - Laa ilaaha illallah
-   - Alhamdulillah
-   - Astaghfirullah
+   1. Laa ilaaha illallah
+   2. Alhamdulillah
+   3. Astaghfirullah
+   4. Allahumma sholli 'ala Muhammad (selected by default)
+   5. Allahumma sholli 'ala sayyidina Muhammad
+   6. **Teks sendiri** (own text): the user types their own dzikir in an Arabic box, a Latin box, or both. If they tap "Mulai Pengingat" with both boxes empty, a short message asks them to write something first.
 2. **How often** ("Setiap"): 30 menit · 1 jam · 1,5 jam · 2 jam · 3 jam. The default is **1 jam**.
 3. **Quiet hours** ("Jam tenang"): a switch, **on by default**, from **22:00 to 04:30**. Tapping a time lets the user change it.
 4. **Big button:**
@@ -45,11 +47,13 @@ From top to bottom:
 - App name, version and "Dibuat oleh EOI" (made by EOI).
 - One line: "Gratis selamanya. Tanpa iklan. Tidak mengumpulkan data pribadi." (Free forever. No ads. Collects no personal data.)
 - A short help section: **"Pengingat tidak muncul?"** (Reminders not showing?), with simple steps for turning off battery optimization for the app (see section 4).
+- **Donasi (tidak wajib)**: a gentle, fully optional donation message. For now it ends with "Info donasi akan segera hadir." The owner's donation details come later, **after checking Google Play's rules** about donations inside apps.
 
 ### The notification
 
 - **Title:** Arabic text, e.g. اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ
 - **Text below:** Latin, e.g. Allahumma sholli 'ala Muhammad
+- **Own text:** Arabic as the title and Latin below; if only one box is filled, that text is the title.
 - **No sound. No vibration.** It appears quietly on the screen and in the notification list.
 - Tapping it opens the app. Nothing else is needed.
 
@@ -61,7 +65,9 @@ These are saved only on the phone. Nothing is sent anywhere.
 
 | Setting | Possible values | Default |
 |---|---|---|
-| Chosen dzikir | sholawat, tahlil, hamdalah, istighfar | sholawat |
+| Chosen dzikir | tahlil, hamdalah, istighfar, sholawat, sholawat_sayyidina, custom | sholawat |
+| Own text (Arabic) | up to 120 characters | empty |
+| Own text (Latin) | up to 120 characters | empty |
 | Interval | 30, 60, 90, 120, 180 minutes | 60 |
 | Quiet hours on? | yes / no | yes |
 | Quiet hours start | a time | 22:00 |
@@ -99,10 +105,12 @@ Please check the Arabic, the Latin spelling and the meaning before release. If a
 
 | # | Name in app | Arabic (notification title) | Latin (notification text) | Indonesian meaning (shown in app only) | Owner OK? |
 |---|---|---|---|---|---|
-| 1 | Sholawat | اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ | Allahumma sholli 'ala Muhammad | Ya Allah, limpahkanlah rahmat kepada Nabi Muhammad | ☐ |
-| 2 | Tahlil | لَا إِلَٰهَ إِلَّا اللَّهُ | Laa ilaaha illallah | Tiada Tuhan selain Allah | ☐ |
-| 3 | Hamdalah | الْحَمْدُ لِلَّهِ | Alhamdulillah | Segala puji bagi Allah | ☐ |
-| 4 | Istighfar | أَسْتَغْفِرُ اللَّهَ | Astaghfirullah | Aku memohon ampun kepada Allah | ☐ |
+| 1 | Tahlil | لَا إِلَٰهَ إِلَّا اللَّهُ | Laa ilaaha illallah | Tiada Tuhan selain Allah | ☐ |
+| 2 | Hamdalah | الْحَمْدُ لِلَّهِ | Alhamdulillah | Segala puji bagi Allah | ☐ |
+| 3 | Istighfar | أَسْتَغْفِرُ اللَّهَ | Astaghfirullah | Aku memohon ampun kepada Allah | ☐ |
+| 4 | Sholawat | اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ | Allahumma sholli 'ala Muhammad | Ya Allah, limpahkanlah rahmat kepada Nabi Muhammad | ☐ |
+| 5 | Sholawat (Sayyidina) | اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ | Allahumma sholli 'ala sayyidina Muhammad | Ya Allah, limpahkanlah rahmat kepada junjungan kami, Nabi Muhammad | ☐ |
+| 6 | Teks sendiri | (written by the user) | (written by the user) | — | — |
 
 ---
 
@@ -122,6 +130,12 @@ Please check the Arabic, the Latin spelling and the meaning before release. If a
 - JagaDzikir is **Android only** (Indonesian market), built as a **native Android app in Kotlin with no extra libraries**, to keep it tiny (target: under 0.5 MB) and fast on cheap phones.
 - This replaces the React Native / Expo plan in the brief **for this app only**. Future EOI apps will use React Native.
 - Everything else in this spec stays the same: screens, settings, rules, texts, app ID `com.eoi.jagadzikir`.
+
+## Changes requested by the owner (16 Oct 2026)
+
+- New dzikir list in the owner's order (6 items, the last one is the user's own text).
+- Donasi placeholder in Tentang (optional, gentle wording; details later after checking Google Play's rules).
+- iPhone version: moved to `later.md`.
 
 ## Small suggestions from me (tell me if you disagree)
 
