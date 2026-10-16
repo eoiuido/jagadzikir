@@ -15,7 +15,10 @@ import java.util.Calendar
 // which never makes a sound) for the next reminder time. When it fires, the app shows
 // a silent notification and sets the timer for the time after that. No server, no internet.
 object Reminders {
-    private const val CHANNEL = "dzikir"
+    // High importance lets the reminder pop up for a few seconds; it stays silent.
+    // Android never lets an app raise a channel's importance, so this replaces the old "dzikir" channel.
+    private const val CHANNEL = "dzikir_popup"
+    private const val OLD_CHANNEL = "dzikir"
     private const val NOTIFICATION_ID = 1
 
     fun schedule(context: Context) {
@@ -34,12 +37,14 @@ object Reminders {
 
     fun ensureChannel(context: Context) {
         if (Build.VERSION.SDK_INT < 26) return
-        val channel = NotificationChannel(CHANNEL, "Pengingat dzikir", NotificationManager.IMPORTANCE_DEFAULT).apply {
+        val channel = NotificationChannel(CHANNEL, "Pengingat dzikir", NotificationManager.IMPORTANCE_HIGH).apply {
             setSound(null, null)
             enableVibration(false)
             setShowBadge(false)
         }
-        context.getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
+        val manager = context.getSystemService(NotificationManager::class.java)
+        manager.deleteNotificationChannel(OLD_CHANNEL)
+        manager.createNotificationChannel(channel)
     }
 
     fun show(context: Context) {
@@ -71,7 +76,7 @@ object Reminders {
         Notification.Builder(context)
             .setSound(null)
             .setVibrate(null)
-            .setPriority(Notification.PRIORITY_DEFAULT)
+            .setPriority(Notification.PRIORITY_HIGH)
 
     private fun alarmIntent(context: Context): PendingIntent =
         PendingIntent.getBroadcast(

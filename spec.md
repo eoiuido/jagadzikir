@@ -7,7 +7,7 @@ Status: **APPROVED by the owner on 12 Oct 2026.** The religious texts in section
 ## 1. Premise
 
 - **Who:** Muslims in Indonesia with busy days.
-- **Problem:** During a busy day it is easy to forget to recite sholawat and dzikir.
+- **Problem:** During a busy day it is easy to forget to recite dzikir and sholawat.
 - **Promise:** Pick one dzikir and how often. JagaDzikir quietly shows it on your phone, all day, with no sound, no ads and no cost. Forever.
 
 ---
@@ -55,7 +55,7 @@ From top to bottom:
 - **Title:** Arabic text, e.g. اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ
 - **Text below:** Latin, e.g. Allahumma sholli 'ala Muhammad
 - **Own text:** the first line is the title, the other lines go below it.
-- **No sound. No vibration.** It appears quietly on the screen and in the notification list.
+- **No sound. No vibration.** It pops up at the top of the screen for a few seconds, then stays in the notification list (owner's request, 16 Oct 2026).
 - Tapping it opens the app. Nothing else is needed.
 
 ---
