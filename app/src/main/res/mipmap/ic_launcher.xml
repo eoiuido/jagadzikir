@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Icon for Android 7 (older phones without adaptive icons): green circle with white crescent. -->
+<!-- Icon for Android 7 (older phones without adaptive icons): green circle with white crescent and star. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="48dp"
     android:height="48dp"
@@ -16,5 +16,8 @@
         <path
             android:fillColor="#FFFFFFFF"
             android:pathData="M10.584,3.112 A9,9 0 1,0 20.136,15.848 A8,8 0 0,1 10.584,3.112 Z" />
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M17,5 L17.705,7.029 L19.853,7.073 L18.141,8.371 L18.763,10.427 L17,9.2 L15.237,10.427 L15.859,8.371 L14.147,7.073 L16.295,7.029 Z" />
     </group>
 </vector>

@@ -55,19 +55,16 @@ val DZIKIR = listOf(
 fun dzikirById(id: String): Dzikir? = DZIKIR.firstOrNull { it.id == id }
 
 // What the notification shows: (title, text). Null if the user's own text is still empty.
+// For the user's own text, the first line is the title and the rest goes below it.
 fun notificationText(s: Settings): Pair<String, String>? {
     if (s.dzikir != CUSTOM_ID) {
         val d = dzikirById(s.dzikir) ?: DZIKIR[3]
         return d.arabic to d.latin
     }
-    val arabic = s.customArabic.trim()
-    val latin = s.customLatin.trim()
-    return when {
-        arabic.isNotEmpty() -> arabic to latin
-        latin.isNotEmpty() -> latin to ""
-        else -> null
-    }
+    val lines = s.customText.lines().map { it.trim() }.filter { it.isNotEmpty() }
+    if (lines.isEmpty()) return null
+    return lines.first() to lines.drop(1).joinToString(" ")
 }
 
 fun dzikirName(s: Settings): String =
-    if (s.dzikir == CUSTOM_ID) "Teks sendiri" else (dzikirById(s.dzikir) ?: DZIKIR[3]).name
+    if (s.dzikir == CUSTOM_ID) "Isi sendiri" else (dzikirById(s.dzikir) ?: DZIKIR[3]).name

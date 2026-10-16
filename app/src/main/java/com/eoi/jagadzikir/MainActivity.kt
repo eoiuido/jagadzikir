@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.TimePickerDialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Paint
@@ -43,6 +44,7 @@ private val WARNING_BG = 0xFFFDECEA.toInt()
 private val WARNING_TEXT = 0xFF8A1C14.toInt()
 
 private const val REQUEST_NOTIFICATIONS = 1
+private const val FEEDBACK_EMAIL = "eoi.uido@gmail.com"
 
 // The whole app is this one screen (Home), plus the About page.
 // Views are built in code: no layout library, which keeps the app tiny.
@@ -90,7 +92,7 @@ class MainActivity : Activity() {
     private fun onStartPressed() {
         if (notificationText(settings) == null) {
             AlertDialog.Builder(this)
-                .setTitle("Teks sendiri")
+                .setTitle("Isi sendiri")
                 .setMessage("Tulis teks Anda dulu, dalam huruf Arab, Latin, atau keduanya.")
                 .setPositiveButton("OK", null)
                 .show()
@@ -238,7 +240,7 @@ class MainActivity : Activity() {
         })
         page.addView(label("JagaDzikir", 28, GREEN, bold = true).withTop(8))
         page.addView(body("Versi ${versionName()} · Dibuat oleh EOI"))
-        page.addView(body("Gratis selamanya. Tanpa iklan. Tidak mengumpulkan data pribadi."))
+        page.addView(body("Tidak mengumpulkan data pribadi."))
 
         page.addView(section("Pengingat tidak muncul?"))
         page.addView(body("Beberapa HP menghemat baterai dengan menahan notifikasi. Agar pengingat selalu muncul:"))
@@ -248,13 +250,33 @@ class MainActivity : Activity() {
         page.addView(body("Pastikan juga notifikasi untuk JagaDzikir diizinkan. Pengingat kadang bisa terlambat beberapa menit. Ini normal di Android."))
         page.addView(button("Buka Pengaturan Aplikasi", filled = false) { startActivity(appDetailsIntent()) }.withTop(16))
 
+        page.addView(section("Saran & masukan"))
+        page.addView(body("Punya saran, atau menemukan kesalahan pada teks? Kami senang sekali mendengarnya."))
+        page.addView(button("Kirim email ke EOI", filled = false) { sendFeedback() }.withTop(12))
+        page.addView(label(FEEDBACK_EMAIL, 13, GREY).apply {
+            gravity = Gravity.CENTER
+            setTextIsSelectable(true)
+        }.withTop(6))
+
         page.addView(section("Donasi (tidak wajib)"))
-        page.addView(body("JagaDzikir gratis selamanya, tanpa iklan, dan akan tetap begitu."))
-        page.addView(body("Jika aplikasi kecil ini membantu Anda lebih sering berdzikir, dan hati Anda tergerak untuk ikut mendukung, Anda bisa berdonasi seikhlasnya."))
-        page.addView(body("Tanpa donasi pun sama sekali tidak apa-apa. Doa baik dari Anda sudah sangat berarti. Jazakumullahu khairan."))
-        // TODO: replace with the owner's donation details once Google Play's rules are checked.
-        page.addView(label("Info donasi akan segera hadir.", 13, GREY).withTop(8))
+        // TODO: replace "..." with the owner's donation details once Google Play's rules are checked.
+        page.addView(body("JagaDzikir gratis selamanya dan tanpa iklan. Jika aplikasi ini membantu Anda, Anda bisa mendukung kami melalui ..."))
         return page
+    }
+
+    // Opens the user's own email app. JagaDzikir itself sends nothing.
+    private fun sendFeedback() {
+        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$FEEDBACK_EMAIL"))
+            .putExtra(Intent.EXTRA_SUBJECT, "Masukan JagaDzikir ${versionName()}")
+        try {
+            startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            AlertDialog.Builder(this)
+                .setTitle("Saran & masukan")
+                .setMessage("Silakan kirim email ke $FEEDBACK_EMAIL")
+                .setPositiveButton("OK", null)
+                .show()
+        }
     }
 
     private fun dzikirCard(d: Dzikir, selected: Boolean): View {
@@ -265,26 +287,20 @@ class MainActivity : Activity() {
         return card
     }
 
-    // The 6th choice: the user writes their own dzikir, in Arabic, Latin or both.
+    // The 6th choice: the user writes their own dzikir in one box (Arabic, Latin or both).
     private fun customCard(): View {
         val selected = settings.dzikir == CUSTOM_ID
-        val card = cardShell("Teks sendiri", selected) { update(settings.copy(dzikir = CUSTOM_ID)) }
+        val card = cardShell("Isi sendiri (teks Arab, Latin, atau keduanya)", selected) {
+            update(settings.copy(dzikir = CUSTOM_ID))
+        }
         if (selected) {
             // Typing saves straight away, without redrawing the screen (that would close the keyboard).
-            card.addView(input(settings.customArabic, "Teks Arab (boleh kosong)", arabic = true) {
-                settings = settings.copy(customArabic = it)
+            card.addView(input(settings.customText, "Tulis di sini") {
+                settings = settings.copy(customText = it)
                 Store.save(this, settings)
             }.withTop(10))
-            card.addView(input(settings.customLatin, "Teks Latin (boleh kosong)", arabic = false) {
-                settings = settings.copy(customLatin = it)
-                Store.save(this, settings)
-            }.withTop(8))
-            card.addView(label("Isi salah satu atau keduanya.", 13, GREY).withTop(6))
-        } else if (settings.customArabic.isBlank() && settings.customLatin.isBlank()) {
-            card.addView(label("Tulis dzikir atau doa Anda sendiri.", 13, GREY).withTop(6))
-        } else {
-            if (settings.customArabic.isNotBlank()) card.addView(arabicLabel(settings.customArabic.trim()))
-            if (settings.customLatin.isNotBlank()) card.addView(latinLabel(settings.customLatin.trim()))
+        } else if (settings.customText.isNotBlank()) {
+            card.addView(label(settings.customText.trim(), 17, TEXT).withTop(6))
         }
         return card
     }
@@ -313,15 +329,17 @@ class MainActivity : Activity() {
     private fun latinLabel(str: String): View =
         label(str, 15, TEXT_SOFT).apply { setTypeface(typeface, Typeface.ITALIC) }.withTop(4)
 
-    private fun input(value: String, hintText: String, arabic: Boolean, onChange: (String) -> Unit): EditText =
+    // Each line lines up on its own side: Arabic on the right, Latin on the left.
+    private fun input(value: String, hintText: String, onChange: (String) -> Unit): EditText =
         EditText(this).apply {
             setText(value)
             hint = hintText
-            textSize = if (arabic) 20f else 15f
+            textSize = 17f
             setTextColor(TEXT)
-            if (arabic) gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
+            gravity = Gravity.START or Gravity.TOP
+            minLines = 2
             inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
-            filters = arrayOf(InputFilter.LengthFilter(120))
+            filters = arrayOf(InputFilter.LengthFilter(200))
             background = rounded(WHITE, BORDER, 10)
             setPadding(dp(12), dp(10), dp(12), dp(10))
             addTextChangedListener(object : TextWatcher {
