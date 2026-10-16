@@ -27,7 +27,7 @@ From top to bottom:
    4. Allahumma sholli 'ala Muhammad (selected by default)
    5. Allahumma sholli 'ala sayyidina Muhammad
    6. **Isi sendiri (teks Arab, Latin, atau keduanya)**: one text box for the user's own dzikir. In the notification, the first line is the title and the rest goes below it. If they tap "Mulai Pengingat" with both boxes empty, a short message asks them to write something first.
-2. **How often** ("Setiap"): 15 menit · 30 menit · 1 jam · 1,5 jam · 2 jam · 3 jam, in two rows of three. The default is **30 menit**.
+2. **How often** ("Setiap"): 15 menit · 30 menit · 1 jam. The default is **30 menit**.
 3. **Quiet hours** ("Jam tenang"): a switch, **on by default**, from **22:00 to 04:30**. Tapping a time lets the user change it.
 4. **Big button:**
    - When reminders are off: **"Mulai Pengingat"** (Start reminders)
@@ -68,7 +68,7 @@ These are saved only on the phone. Nothing is sent anywhere.
 |---|---|---|
 | Chosen dzikir | tahlil, hamdalah, istighfar, sholawat, sholawat_sayyidina, custom | sholawat |
 | Own text | up to 200 characters | empty |
-| Interval | 15, 30, 60, 90, 120, 180 minutes | 30 |
+| Interval | 15, 30, 60 minutes | 30 |
 | Quiet hours on? | yes / no | yes |
 | Quiet hours start | a time | 22:00 |
 | Quiet hours end | a time | 04:30 |
@@ -116,7 +116,7 @@ Please check the Arabic, the Latin spelling and the meaning before release. If a
 
 ## Decisions from the interview (12 Oct 2026)
 
-- Interval: 30 minutes to 3 hours (changed on 16 Oct 2026 to 15 minutes to 3 hours).
+- Interval: 30 minutes to 3 hours (changed on 16 Oct 2026 to 15 minutes, 30 minutes or 1 hour).
 - Only **one** dzikir can be active at a time.
 - Quiet hours: on by default, 22:00 to 04:30, and the user can change them.
 - Notification: Arabic title + Latin text.
@@ -144,4 +144,4 @@ Please check the Arabic, the Latin spelling and the meaning before release. If a
 
 - Showing the Indonesian meaning in small text on the Home screen, but not in the notification.
 - The default interval is 1 hour (changed on 16 Oct 2026 to 30 minutes).
-- Interval choices are 15 min, 30 min, 1 h, 1.5 h, 2 h and 3 h.
+- Interval choices are 15 min, 30 min and 1 h.

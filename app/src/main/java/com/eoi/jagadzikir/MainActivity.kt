@@ -349,7 +349,7 @@ class MainActivity : Activity() {
             })
         }
 
-    // Interval choices in rows of three, so they fit on small phones.
+    // Interval choices in rows of three (currently one row), so they fit on small phones.
     private fun intervalRow(): View {
         val grid = column()
         INTERVALS.chunked(3).forEachIndexed { r, rowItems ->

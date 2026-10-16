@@ -33,7 +33,7 @@ PILIHAN DZIKIR
 Setiap pilihan dilengkapi teks Arab, bacaan Latin, dan artinya.
 
 ATUR SESUKA ANDA
-• Pengingat setiap 15 menit, 30 menit, 1 jam, 1,5 jam, 2 jam, atau 3 jam
+• Pengingat setiap 15 menit, 30 menit, atau 1 jam
 • Jam tenang: tidak ada pengingat di jam tidur (awalnya 22:00 sampai 04:30, bisa diubah)
 • Tetap berjalan walau aplikasi ditutup atau HP dinyalakan ulang
 

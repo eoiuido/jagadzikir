@@ -5,7 +5,7 @@ import java.util.Locale
 
 private const val DAY = 24 * 60
 
-val INTERVALS = listOf(15, 30, 60, 90, 120, 180)
+val INTERVALS = listOf(15, 30, 60)
 
 // Every reminder time in one day (minutes after midnight), skipping quiet hours.
 // Example: every 60 min, quiet 22:00-04:30 -> 05:30, 06:30, ..., 21:30.

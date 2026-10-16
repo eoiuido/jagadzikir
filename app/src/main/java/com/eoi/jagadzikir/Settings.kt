@@ -22,7 +22,7 @@ object Store {
         val d = Settings()
         return Settings(
             dzikir = p.getString("dzikir", d.dzikir) ?: d.dzikir,
-            intervalMinutes = p.getInt("interval", d.intervalMinutes),
+            intervalMinutes = p.getInt("interval", d.intervalMinutes).takeIf { it in INTERVALS } ?: d.intervalMinutes,
             quietEnabled = p.getBoolean("quietEnabled", d.quietEnabled),
             quietStart = p.getInt("quietStart", d.quietStart),
             quietEnd = p.getInt("quietEnd", d.quietEnd),
