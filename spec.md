@@ -56,6 +56,7 @@ From top to bottom:
 - **Text below:** Latin, e.g. Allahumma sholli 'ala Muhammad
 - **Own text:** the first line is the title, the other lines go below it.
 - **No sound. No vibration.** It pops up at the top of the screen for a few seconds, then stays in the notification list (owner's request, 16 Oct 2026).
+- Pop-up is the user's choice: Tentang has a **"Tampilan pengingat"** section with an "Atur Tampilan Pengingat" button that opens the phone's settings for these notifications, where "Banner" / "Pop-up" can be turned on or off. Some phone brands turn it off by default.
 - Tapping it opens the app. Nothing else is needed.
 
 ---

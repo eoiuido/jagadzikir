@@ -160,6 +160,23 @@ class MainActivity : Activity() {
         startActivity(intent)
     }
 
+    // Opens the settings of the reminder notifications themselves, where pop-up can be turned on or off.
+    private fun openReminderSettings() {
+        if (Build.VERSION.SDK_INT < 26) {
+            openNotificationSettings()
+            return
+        }
+        Reminders.ensureChannel(this)
+        val intent = Intent(AndroidSettings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
+            .putExtra(AndroidSettings.EXTRA_APP_PACKAGE, packageName)
+            .putExtra(AndroidSettings.EXTRA_CHANNEL_ID, Reminders.CHANNEL)
+        try {
+            startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            openNotificationSettings()
+        }
+    }
+
     private fun appDetailsIntent() =
         Intent(AndroidSettings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName"))
 
@@ -241,6 +258,13 @@ class MainActivity : Activity() {
         page.addView(label("JagaDzikir", 28, GREEN, bold = true).withTop(8))
         page.addView(body("Versi ${versionName()} · Dibuat oleh EOI"))
         page.addView(body("Tidak mengumpulkan data pribadi."))
+
+        page.addView(section("Tampilan pengingat"))
+        page.addView(body("Anda bisa memilih bagaimana pengingat tampil, sesuai kenyamanan Anda:"))
+        page.addView(body("• Muncul sebentar di bagian atas layar, lalu tersimpan di bilah notifikasi."))
+        page.addView(body("• Hanya tampil sebagai ikon kecil di bilah notifikasi, tanpa muncul di layar."))
+        page.addView(body("Keduanya tetap tanpa suara. Untuk memilih, buka pengaturan di bawah, lalu nyalakan atau matikan \"Banner\" atau \"Pop-up\" (namanya bisa berbeda di tiap HP)."))
+        page.addView(button("Atur Tampilan Pengingat", filled = false) { openReminderSettings() }.withTop(16))
 
         page.addView(section("Pengingat tidak muncul?"))
         page.addView(body("Beberapa HP menghemat baterai dengan menahan notifikasi. Agar pengingat selalu muncul:"))

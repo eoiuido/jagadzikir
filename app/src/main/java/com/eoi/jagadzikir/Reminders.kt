@@ -17,7 +17,7 @@ import java.util.Calendar
 object Reminders {
     // High importance lets the reminder pop up for a few seconds; it stays silent.
     // Android never lets an app raise a channel's importance, so this replaces the old "dzikir" channel.
-    private const val CHANNEL = "dzikir_popup"
+    const val CHANNEL = "dzikir_popup"
     private const val OLD_CHANNEL = "dzikir"
     private const val NOTIFICATION_ID = 1
 

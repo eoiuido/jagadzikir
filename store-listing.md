@@ -35,6 +35,7 @@ Setiap pilihan dilengkapi teks Arab, bacaan Latin, dan artinya.
 ATUR SESUKA ANDA
 • Pengingat setiap 15 menit, 30 menit, atau 1 jam
 • Jam tenang: tidak ada pengingat di jam tidur (awalnya 22:00 sampai 04:30, bisa diubah)
+• Pilih tampilan: muncul sebentar di layar, atau cukup ikon kecil di bilah notifikasi
 • Tetap berjalan walau aplikasi ditutup atau HP dinyalakan ulang
 
 RINGAN DAN MENJAGA PRIVASI
