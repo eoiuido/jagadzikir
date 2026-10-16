@@ -45,6 +45,7 @@ private val WARNING_TEXT = 0xFF8A1C14.toInt()
 
 private const val REQUEST_NOTIFICATIONS = 1
 private const val FEEDBACK_EMAIL = "eoi.uido@gmail.com"
+private const val EOI_WEBSITE = "https://eoiuido.github.io"
 
 // The whole app is this one screen (Home), plus the About page.
 // Views are built in code: no layout library, which keeps the app tiny.
@@ -282,10 +283,29 @@ class MainActivity : Activity() {
             setTextIsSelectable(true)
         }.withTop(6))
 
+        page.addView(section("Aplikasi lain dari EOI"))
+        page.addView(body("EOI membuat aplikasi sederhana yang bermanfaat untuk keseharian Anda. Lihat aplikasi EOI lainnya:"))
+        page.addView(button("Lihat Aplikasi EOI", filled = false) { openWebsite() }.withTop(12))
+        page.addView(label(EOI_WEBSITE.removePrefix("https://"), 13, GREY).apply { gravity = Gravity.CENTER }.withTop(6))
+
         page.addView(section("Donasi (tidak wajib)"))
         // TODO: replace "..." with the owner's donation details once Google Play's rules are checked.
         page.addView(body("JagaDzikir gratis selamanya dan tanpa iklan. Jika aplikasi ini membantu Anda, Anda bisa mendukung kami melalui ..."))
         return page
+    }
+
+    // Opens the EOI website in the user's browser. The list of apps lives there,
+    // so new EOI apps can be added without updating JagaDzikir.
+    private fun openWebsite() {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(EOI_WEBSITE)))
+        } catch (e: ActivityNotFoundException) {
+            AlertDialog.Builder(this)
+                .setTitle("Aplikasi lain dari EOI")
+                .setMessage("Kunjungi $EOI_WEBSITE")
+                .setPositiveButton("OK", null)
+                .show()
+        }
     }
 
     // Opens the user's own email app. JagaDzikir itself sends nothing.
