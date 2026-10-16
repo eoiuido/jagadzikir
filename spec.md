@@ -47,7 +47,7 @@ From top to bottom:
 - App name, version and "Dibuat oleh EOI" (made by EOI).
 - One line: "Gratis selamanya. Tanpa iklan. Tidak mengumpulkan data pribadi." (Free forever. No ads. Collects no personal data.)
 - A short help section: **"Pengingat tidak muncul?"** (Reminders not showing?), with simple steps for turning off battery optimization for the app (see section 4).
-- **Saran & masukan**: "Kirim email ke EOI" opens the user's own email app, addressed to eoi.uido@gmail.com. The app itself sends nothing.
+- **Saran & masukan**: "Kirim masukan" opens the user's own email app, addressed to eoi.uido@gmail.com. The app itself sends nothing.
 - **Donasi (tidak wajib)**: "JagaDzikir gratis selamanya dan tanpa iklan. Jika aplikasi ini membantu Anda, Anda bisa mendukung kami melalui ..." The "..." is filled in later, **after checking Google Play's rules** about donations inside apps.
 
 ### The notification

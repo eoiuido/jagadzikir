@@ -252,7 +252,7 @@ class MainActivity : Activity() {
 
         page.addView(section("Saran & masukan"))
         page.addView(body("Punya saran, atau menemukan kesalahan pada teks? Kami senang sekali mendengarnya."))
-        page.addView(button("Kirim email ke EOI", filled = false) { sendFeedback() }.withTop(12))
+        page.addView(button("Kirim masukan", filled = false) { sendFeedback() }.withTop(12))
         page.addView(label(FEEDBACK_EMAIL, 13, GREY).apply {
             gravity = Gravity.CENTER
             setTextIsSelectable(true)
