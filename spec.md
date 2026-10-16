@@ -21,12 +21,12 @@ The app has **2 screens**. All text in the app is in **Indonesian**.
 From top to bottom:
 
 1. **Pick one dzikir** (only one can be chosen at a time). Each choice shows the Arabic, the Latin and a short Indonesian meaning in small text, so the user knows what they are choosing.
-   1. Laa ilaaha illallah
+   1. Laa ilaaha illallah (selected by default)
    2. Alhamdulillah
    3. Astaghfirullah
-   4. Allahumma sholli 'ala Muhammad (selected by default)
+   4. Allahumma sholli 'ala Muhammad
    5. Allahumma sholli 'ala sayyidina Muhammad
-   6. **Isi sendiri (teks Arab, Latin, atau keduanya)**: one text box for the user's own dzikir. In the notification, the first line is the title and the rest goes below it. If they tap "Mulai Pengingat" with both boxes empty, a short message asks them to write something first.
+   6. **Isi sendiri (teks Arab, Latin, atau keduanya)**: one text box for the user's own dzikir. In the notification, the first line is the title and the rest goes below it. If they tap "Mulai Pengingat" with the box empty, a short message asks them to write something first.
 2. **How often** ("Setiap"): 15 menit · 30 menit · 1 jam. The default is **30 menit**.
 3. **Quiet hours** ("Jam tenang"): a switch, **on by default**, from **22:00 to 04:30**. Tapping a time lets the user change it.
 4. **Big button:**
@@ -66,7 +66,7 @@ These are saved only on the phone. Nothing is sent anywhere.
 
 | Setting | Possible values | Default |
 |---|---|---|
-| Chosen dzikir | tahlil, hamdalah, istighfar, sholawat, sholawat_sayyidina, custom | sholawat |
+| Chosen dzikir | tahlil, hamdalah, istighfar, sholawat, sholawat_sayyidina, custom | tahlil |
 | Own text | up to 200 characters | empty |
 | Interval | 15, 30, 60 minutes | 30 |
 | Quiet hours on? | yes / no | yes |
@@ -138,7 +138,7 @@ Please check the Arabic, the Latin spelling and the meaning before release. If a
 - iPhone version: moved to `later.md`.
 - Own text uses one box; feedback by email added to Tentang; icon is a crescent and star (owner's request).
 - Tested by the owner: reminders still arrive after a phone restart and with battery saver on.
-- 15 menit added and 30 menit made the default; both sholawat choices are titled "Sholawat"; wording is "dzikir dan sholawat" (owner's request).
+- 15 menit added and 30 menit made the default; Laa ilaaha illallah is the default dzikir; both sholawat choices are titled "Sholawat"; wording is "dzikir dan sholawat" (owner's request).
 
 ## Small suggestions from me (tell me if you disagree)
 
