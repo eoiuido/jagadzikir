@@ -58,7 +58,7 @@ fun dzikirById(id: String): Dzikir? = DZIKIR.firstOrNull { it.id == id }
 // For the user's own text, the first line is the title and the rest goes below it.
 fun notificationText(s: Settings): Pair<String, String>? {
     if (s.dzikir != CUSTOM_ID) {
-        val d = dzikirById(s.dzikir) ?: DZIKIR[3]
+        val d = dzikirById(s.dzikir) ?: DZIKIR[0]
         return d.arabic to d.latin
     }
     val lines = s.customText.lines().map { it.trim() }.filter { it.isNotEmpty() }
@@ -67,4 +67,4 @@ fun notificationText(s: Settings): Pair<String, String>? {
 }
 
 fun dzikirName(s: Settings): String =
-    if (s.dzikir == CUSTOM_ID) "Isi sendiri" else (dzikirById(s.dzikir) ?: DZIKIR[3]).name
+    if (s.dzikir == CUSTOM_ID) "Isi sendiri" else (dzikirById(s.dzikir) ?: DZIKIR[0]).name
