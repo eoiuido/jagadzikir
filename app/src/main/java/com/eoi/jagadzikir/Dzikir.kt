@@ -45,7 +45,7 @@ val DZIKIR = listOf(
     ),
     Dzikir(
         id = "sholawat_sayyidina",
-        name = "Sholawat (Sayyidina)",
+        name = "Sholawat",
         arabic = "اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ",
         latin = "Allahumma sholli 'ala sayyidina Muhammad",
         meaning = "Ya Allah, limpahkanlah rahmat kepada junjungan kami, Nabi Muhammad",

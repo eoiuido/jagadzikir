@@ -60,7 +60,7 @@ class MainActivity : Activity() {
         settings = Store.load(this)
         scroll = ScrollView(this).apply {
             setBackgroundColor(BACKGROUND)
-            clipToPadding = false
+            clipToPadding = true
         }
         // Android 15+ draws the app behind the status bar; keep content below it.
         if (Build.VERSION.SDK_INT >= 35) {
@@ -349,19 +349,24 @@ class MainActivity : Activity() {
             })
         }
 
+    // Interval choices in rows of three, so they fit on small phones.
     private fun intervalRow(): View {
-        val row = LinearLayout(this)
-        INTERVALS.forEachIndexed { i, minutes ->
-            val selected = minutes == settings.intervalMinutes
-            val chip = label(formatInterval(minutes), 13, if (selected) WHITE else TEXT, bold = selected).apply {
-                gravity = Gravity.CENTER
-                setPadding(0, dp(10), 0, dp(10))
-                background = rounded(if (selected) GREEN else WHITE, if (selected) GREEN else BORDER, 20)
-                setOnClickListener { update(settings.copy(intervalMinutes = minutes)) }
+        val grid = column()
+        INTERVALS.chunked(3).forEachIndexed { r, rowItems ->
+            val row = LinearLayout(this)
+            rowItems.forEachIndexed { i, minutes ->
+                val selected = minutes == settings.intervalMinutes
+                val chip = label(formatInterval(minutes), 14, if (selected) WHITE else TEXT, bold = selected).apply {
+                    gravity = Gravity.CENTER
+                    setPadding(0, dp(10), 0, dp(10))
+                    background = rounded(if (selected) GREEN else WHITE, if (selected) GREEN else BORDER, 20)
+                    setOnClickListener { update(settings.copy(intervalMinutes = minutes)) }
+                }
+                row.addView(chip, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).apply { if (i > 0) marginStart = dp(8) })
             }
-            row.addView(chip, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).apply { if (i > 0) marginStart = dp(6) })
+            grid.addView(row.withTop(if (r > 0) 8 else 0))
         }
-        return row.withTop(10)
+        return grid.withTop(10)
     }
 
     private fun quietRow(): View {

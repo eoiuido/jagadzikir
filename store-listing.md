@@ -13,7 +13,7 @@ JagaDzikir: Pengingat Dzikir
 
 **Short description** (max 80 characters):
 ```
-Pengingat sholawat & dzikir yang lembut dan senyap. Gratis, tanpa iklan.
+Pengingat dzikir & sholawat yang lembut dan senyap. Gratis, tanpa iklan.
 ```
 
 **Full description** (max 4000 characters):
@@ -33,7 +33,7 @@ PILIHAN DZIKIR
 Setiap pilihan dilengkapi teks Arab, bacaan Latin, dan artinya.
 
 ATUR SESUKA ANDA
-• Pengingat setiap 30 menit, 1 jam, 1,5 jam, 2 jam, atau 3 jam
+• Pengingat setiap 15 menit, 30 menit, 1 jam, 1,5 jam, 2 jam, atau 3 jam
 • Jam tenang: tidak ada pengingat di jam tidur (awalnya 22:00 sampai 04:30, bisa diubah)
 • Tetap berjalan walau aplikasi ditutup atau HP dinyalakan ulang
 

@@ -5,7 +5,7 @@ import android.content.Context
 // Times are stored as "minutes after midnight", e.g. 22:00 -> 1320.
 data class Settings(
     val dzikir: String = "sholawat",
-    val intervalMinutes: Int = 60,
+    val intervalMinutes: Int = 30,
     val quietEnabled: Boolean = true,
     val quietStart: Int = 22 * 60,
     val quietEnd: Int = 4 * 60 + 30,
