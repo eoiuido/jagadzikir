@@ -61,8 +61,8 @@ JagaDzikir dibuat oleh EOI: aplikasi sederhana untuk masalah kecil sehari-hari.
 | Category | Lifestyle (Gaya Hidup) |
 | Free or paid | Free |
 | Contact email | eoi.uido@gmail.com |
-| Website | https://eoiuido.github.io |
-| Privacy policy URL | https://eoiuido.github.io/jagadzikir/privasi.html |
+| Website | https://eoi-apps.my.id |
+| Privacy policy URL | https://eoi-apps.my.id/jagadzikir/privasi.html |
 | Contains ads | No |
 | Countries | Indonesia (others can be added later) |
 

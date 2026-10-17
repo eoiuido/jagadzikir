@@ -45,7 +45,7 @@ private val WARNING_TEXT = 0xFF8A1C14.toInt()
 
 private const val REQUEST_NOTIFICATIONS = 1
 private const val FEEDBACK_EMAIL = "eoi.uido@gmail.com"
-private const val EOI_WEBSITE = "https://eoiuido.github.io"
+private const val EOI_WEBSITE = "https://eoi-apps.my.id"
 
 // The whole app is this one screen (Home), plus the About page.
 // Views are built in code: no layout library, which keeps the app tiny.
