@@ -49,7 +49,6 @@ From top to bottom:
 - A short help section: **"Pengingat tidak muncul?"** (Reminders not showing?), with simple steps for turning off battery optimization for the app (see section 4).
 - **Saran & masukan**: "Kirim masukan" opens the user's own email app, addressed to eoi.uido@gmail.com. The app itself sends nothing.
 - **Aplikasi lain dari EOI**: "Kami juga memiliki beberapa aplikasi sehari-hari lain. Kunjungi:" and a "Lihat Aplikasi EOI" button that opens https://eoiuido.github.io in the browser. The list of EOI apps lives on that website, so it can grow without updating JagaDzikir.
-- Donasi section removed by the owner (17 Oct 2026).
 
 ### The notification
 
@@ -136,7 +135,6 @@ Please check the Arabic, the Latin spelling and the meaning before release. If a
 ## Changes requested by the owner (16 Oct 2026)
 
 - New dzikir list in the owner's order (6 items, the last one is the user's own text).
-- Donasi placeholder in Tentang (optional, gentle wording; details later after checking Google Play's rules). Removed again on 17 Oct 2026.
 - iPhone version: moved to `later.md`.
 - Own text uses one box; feedback by email added to Tentang; icon is a crescent and star (owner's request).
 - Tested by the owner: reminders still arrive after a phone restart and with battery saver on.
