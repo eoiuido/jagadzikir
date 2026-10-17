@@ -284,13 +284,9 @@ class MainActivity : Activity() {
         }.withTop(6))
 
         page.addView(section("Aplikasi lain dari EOI"))
-        page.addView(body("EOI membuat aplikasi sederhana yang bermanfaat untuk keseharian Anda. Lihat aplikasi EOI lainnya:"))
+        page.addView(body("Kami juga memiliki beberapa aplikasi sehari-hari lain. Kunjungi:"))
         page.addView(button("Lihat Aplikasi EOI", filled = false) { openWebsite() }.withTop(12))
         page.addView(label(EOI_WEBSITE.removePrefix("https://"), 13, GREY).apply { gravity = Gravity.CENTER }.withTop(6))
-
-        page.addView(section("Donasi (tidak wajib)"))
-        // TODO: replace "..." with the owner's donation details once Google Play's rules are checked.
-        page.addView(body("JagaDzikir gratis selamanya dan tanpa iklan. Jika aplikasi ini membantu Anda, Anda bisa mendukung kami melalui ..."))
         return page
     }
 

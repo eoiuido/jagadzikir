@@ -7,6 +7,5 @@
 - iPhones keep at most 64 scheduled notifications; JagaDzikir needs at most 48 per day, so it fits.
 - Decide after the Android launch.
 
-## Donation details
-- Fill in the Donasi section in Tentang once the owner shares account details.
-- First check Google Play's current rules on donations and payment links inside apps, so the app is not removed.
+## Donation (removed from the app on 17 Oct 2026)
+- The owner removed the Donasi section. If it comes back, first check Google Play's current rules on donations and payment links inside apps.
