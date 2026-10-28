@@ -47,7 +47,7 @@ From top to bottom:
 - App name, version and "Dibuat oleh EOI" (made by EOI).
 - One line: "Gratis selamanya. Tanpa iklan. Tidak mengumpulkan data pribadi." (Free forever. No ads. Collects no personal data.)
 - A short help section: **"Pengingat tidak muncul?"** (Reminders not showing?), with simple steps for turning off battery optimization for the app (see section 4).
-- **Saran & masukan**: "Kirim masukan" opens the user's own email app, addressed to eoi.uido@gmail.com. The app itself sends nothing.
+- "Saran & masukan" (feedback by email) was removed by the owner on 28 Oct 2026; feedback now comes through EOI's Instagram and Facebook.
 - **Aplikasi lain dari EOI**: "Kami juga memiliki beberapa aplikasi sehari-hari lain. Kunjungi:" and a "Lihat Aplikasi EOI" button that opens https://eoi-apps.my.id in the browser. The list of EOI apps lives on that website, so it can grow without updating JagaDzikir.
 
 ### The notification

@@ -44,7 +44,6 @@ private val WARNING_BG = 0xFFFDECEA.toInt()
 private val WARNING_TEXT = 0xFF8A1C14.toInt()
 
 private const val REQUEST_NOTIFICATIONS = 1
-private const val FEEDBACK_EMAIL = "eoi.uido@gmail.com"
 private const val EOI_WEBSITE = "https://eoi-apps.my.id"
 
 // The whole app is this one screen (Home), plus the About page.
@@ -275,14 +274,6 @@ class MainActivity : Activity() {
         page.addView(body("Pastikan juga notifikasi untuk JagaDzikir diizinkan. Pengingat kadang bisa terlambat beberapa menit. Ini normal di Android."))
         page.addView(button("Buka Pengaturan Aplikasi", filled = false) { startActivity(appDetailsIntent()) }.withTop(16))
 
-        page.addView(section("Saran & masukan"))
-        page.addView(body("Punya saran, atau menemukan kesalahan pada teks? Kami senang sekali mendengarnya."))
-        page.addView(button("Kirim masukan", filled = false) { sendFeedback() }.withTop(12))
-        page.addView(label(FEEDBACK_EMAIL, 13, GREY).apply {
-            gravity = Gravity.CENTER
-            setTextIsSelectable(true)
-        }.withTop(6))
-
         page.addView(section("Aplikasi lain dari EOI"))
         page.addView(body("Kami juga memiliki beberapa aplikasi sehari-hari lain. Kunjungi:"))
         page.addView(button("Lihat Aplikasi EOI", filled = false) { openWebsite() }.withTop(12))
@@ -299,21 +290,6 @@ class MainActivity : Activity() {
             AlertDialog.Builder(this)
                 .setTitle("Aplikasi lain dari EOI")
                 .setMessage("Kunjungi $EOI_WEBSITE")
-                .setPositiveButton("OK", null)
-                .show()
-        }
-    }
-
-    // Opens the user's own email app. JagaDzikir itself sends nothing.
-    private fun sendFeedback() {
-        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$FEEDBACK_EMAIL"))
-            .putExtra(Intent.EXTRA_SUBJECT, "Masukan JagaDzikir ${versionName()}")
-        try {
-            startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-            AlertDialog.Builder(this)
-                .setTitle("Saran & masukan")
-                .setMessage("Silakan kirim email ke $FEEDBACK_EMAIL")
                 .setPositiveButton("OK", null)
                 .show()
         }

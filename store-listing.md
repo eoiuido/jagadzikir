@@ -46,7 +46,7 @@ RINGAN DAN MENJAGA PRIVASI
 
 Semoga JagaDzikir menjadi teman kecil yang membantu lisan kita tetap basah dengan dzikir.
 
-Punya saran atau menemukan kesalahan pada teks? Kirim lewat menu Tentang › Kirim masukan, atau email ke eoi.uido@gmail.com.
+Punya saran atau menemukan kesalahan pada teks? Kabari kami lewat Instagram atau Facebook EOI.
 
 JagaDzikir dibuat oleh EOI: aplikasi sederhana untuk masalah kecil sehari-hari.
 ```
